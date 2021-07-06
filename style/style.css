@@ -6,6 +6,7 @@ body {
 #map {
   height: 100vh;
 }
+
 .title {
   position: absolute;
   top: 100px;
@@ -16,4 +17,40 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   font-family: sans-serif;
+}
+
+.search-container {
+  position: absolute;
+  top: 230px;
+  left: 100px;
+  width: 400px;
+  height: 60px;
+  z-index: 10;
+  font-size: 30px;
+  background-color: #454e53;
+  /* color: #ffffff; */
+  border-radius: 30px;
+  /* outline: none; */
+  /* padding: 20px; */
+}
+
+.search-container__search {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.search-container__input {
+  flex-grow: 1;
+  background-color: transparent;
+  color: #ffffff;
+  outline: none;
+  font-size: 25px;
+  border: none;
+}
+
+.fas {
+  color: #ffffff;
 }
