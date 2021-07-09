@@ -21,30 +21,26 @@
 <body>
     <!-- <div class="container home-page">
     </div> -->
+
+    <!-- Title -->
     <div class="title">
         Store Locator
     </div>
+    <!-- Title end -->
 
+    <!-- Search zip -->
     <div class="search-container" type="text">
         <div class="search-container__search">
             <input type="text" placeholder="Enter Zip" class="search-container__input" id="zip-code" />
             <i class="fas fa-search"></i>
         </div>
     </div>
-    <!-- <input type="text" class="search-container__input" /> -->
-    </input>
+    <!-- Search zip end -->
+
+    <!-- Store list container -->
+    <div class="store-list-container"></div>
+
     <div id='map'></div>
-
-    <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoidmFydW52ajEiLCJhIjoiY2txczl0cng5MTU5ODJ1bzFsaGhra3Z6biJ9.W8R-7w5Tj56V9XFXKG6S5Q';
-
-        var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [77.209023, 28.613939],  //long lat
-            zoom: 12,
-        });
-    </script>
 
     <script src="js/index.js" async defer></script>
 </body>
