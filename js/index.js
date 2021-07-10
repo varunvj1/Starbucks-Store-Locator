@@ -9,6 +9,8 @@ var map = new mapboxgl.Map({
     zoom: 11,
 });
 
+var marker;
+
 //Default Marker display
 // var marker = new mapboxgl.Marker().setLngLat([-118.358080, 34.063380]).addTo(map);
 
@@ -29,6 +31,8 @@ const getStores = () => {
         console.log(data);
         addMarkers(data);
         setStoresList(data);
+
+        setOnClickListener(data);
     })
 }
 
@@ -43,34 +47,69 @@ const addMarkers = (stores) => {
     //Define "bounds" to zoom on the area having all the points that have stores on the map
     var bounds = new mapboxgl.LngLatBounds();
 
+
     //Iterate over all the stores
     stores.forEach((store, index) => {
 
+        /* Create a div element for the marker. */
+        var el = document.createElement('div');
+        /* Assign a unique `id` to the marker. */
+        el.id = "marker-" + index;
+        /* Assign the `marker` class to each marker for styling. */
+        el.className = 'marker';
+
+        el.addEventListener('click', function (e) {
+            /* Fly to the point */
+            flyToStore(store.location);
+            /* Close all other popups and display popup for clicked store */
+            createPopUp(store, index);
+
+            /* Highlight listing in sidebar */
+            // Remove prev active state in store list
+            var activeItem = document.getElementsByClassName('active');
+            // e.stopPropagation();
+            if (activeItem[0]) {
+                activeItem[0].classList.remove('active');
+            }
+
+            //Add .active class to the current selected list item
+            let item = document.querySelector(`#link-${index}`);
+            item.classList.add('active');
+
+            //Scroll to the selecetd list item 
+            document.getElementById(`link-${index}`).parentNode.scrollIntoView({ behavior: "smooth" });
+        });
+
+
+
+
+
+
         //Display popup card on click
-        var popup = new mapboxgl.Popup()
-            .setHTML(
-                `<div class="popup-heading"> ${store.storeName} </div>
-                <p> ${store.openStatusText}</p>
-                <hr />
-                <div>
-                    <span class="popup-icon"> <i class="fas fa-location-arrow"></i> </span>
-                    <span class="popup-icon-info">${store.addressLines[0]}</span>
-                </div>
-                <div>
-                    <span class="popup-icon"> <i class="fas fa-phone-alt"></i> </span>
-                    <span class="popup-icon-info">
-                        <a href="tel:${store.phoneNumber}">${store.phoneNumber} </a>
-                    </span>
-                </div>
-            `);
+        // var popup = new mapboxgl.Popup()
+        //     .setHTML(
+        //         `<div id="marker-${index}" class="popup-heading"> ${store.storeName} </div>
+        //         <p> ${store.openStatusText}</p>
+        //         <hr />
+        //         <div>
+        //             <span class="popup-icon"> <i class="fas fa-location-arrow"></i> </span>
+        //             <span class="popup-icon-info">${store.addressLines[0]}</span>
+        //         </div>
+        //         <div>
+        //             <span class="popup-icon"> <i class="fas fa-phone-alt"></i> </span>
+        //             <span class="popup-icon-info">
+        //                 <a href="tel:${store.phoneNumber}">${store.phoneNumber} </a>
+        //             </span>
+        //         </div>
+        //     `);
 
         //Define longitude and latitude coordinates
         var lng = store.location.coordinates[0];
         var lat = store.location.coordinates[1];
 
         //Set marker positions
-        var marker = new mapboxgl.Marker().setLngLat([lng, lat])
-            .setPopup(popup)
+        marker = new mapboxgl.Marker(el, { offset: [0, -23] }).setLngLat([lng, lat])
+            // .setPopup(popup)
             .addTo(map);
 
         var lnglat = new mapboxgl.LngLat(lng, lat);
@@ -87,10 +126,10 @@ const addMarkers = (stores) => {
 const setStoresList = (stores) => {
     let storesHTML = '';
 
-    stores.forEach((store) => {
+    stores.forEach((store, index) => {
         storesHTML += `
         <div class="store-container">
-            <div class="store-info-container">
+            <div id="link-${index}" class="store-info-container">
                 <div class="store-address-lines">
                     <div class="store-address">
                             ${store.addressLines[0]}
@@ -103,9 +142,69 @@ const setStoresList = (stores) => {
                 ${store.phoneNumber}
             </div>
         </div>
-    </div>
-        `
-
-        document.querySelector('.store-list').innerHTML = storesHTML;
+    </div> `;
     })
+
+    document.querySelector('.store-list').innerHTML = storesHTML;
+
+}
+
+
+const setOnClickListener = (stores) => {
+
+    //Add event listener to each list item
+    stores.forEach((store, index) => {
+        var item = document.querySelector(`#link-${index}`);
+
+        //Fly to the selected coordinates
+        item.addEventListener('click', () => {
+            flyToStore(store.location);
+            createPopUp(store, index);
+
+            /* Highlight listing in sidebar */
+            // Remove prev active state in store list
+            var activeItem = document.getElementsByClassName('active');
+            // e.stopPropagation();
+            if (activeItem[0]) {
+                activeItem[0].classList.remove('active');
+            }
+
+            //Add .active class to the current selected list item
+            item.classList.add('active');
+        })
+    })
+}
+
+
+const flyToStore = (location) => {
+    map.flyTo({
+        center: location.coordinates,
+        zoom: 15
+    });
+}
+
+const createPopUp = (store, index) => {
+    var popUps = document.getElementsByClassName('mapboxgl-popup');
+
+    /** Check if there is already a popup on the map and if so, remove it */
+    if (popUps[0]) popUps[0].remove();
+
+    var popup = new mapboxgl.Popup({ closeOnClick: false })
+        .setLngLat(store.location.coordinates)
+        .setHTML(
+            `<div id="marker-${index}" class="popup-heading"> ${store.storeName} </div>
+            <p> ${store.openStatusText}</p>
+            <hr />
+            <div>
+                <span class="popup-icon"> <i class="fas fa-location-arrow"></i> </span>
+                <span class="popup-icon-info">${store.addressLines[0]}</span>
+            </div>
+            <div>
+                <span class="popup-icon"> <i class="fas fa-phone-alt"></i> </span>
+                <span class="popup-icon-info">
+                    <a href="tel:${store.phoneNumber}">${store.phoneNumber} </a>
+                </span>
+            </div>
+        `)
+        .addTo(map);
 }
