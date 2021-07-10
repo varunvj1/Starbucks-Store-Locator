@@ -56,17 +56,6 @@ body {
   color: #ffffff;
 }
 
-.store-list-container {
-  width: 400px;
-  border-radius: 30px;
-  background-color: white;
-  position: absolute;
-  left: 100px;
-  top: 300px;
-  bottom: 15px;
-  z-index: 10;
-}
-
 /************ Popup ************/
 div.mapboxgl-popup-content {
   min-width: 300px;
@@ -110,4 +99,59 @@ div.mapboxgl-popup-content div {
   text-decoration: none;
   color: #514c4c;
   outline: none;
+}
+
+/***** Stores list *******/
+.store-list-container {
+  width: 400px;
+  border-radius: 30px;
+  background-color: white;
+  position: absolute;
+  left: 100px;
+  top: 300px;
+  bottom: 15px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* .stores-list {
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: lightblue;
+  flex-grow: 1;
+  border-radius: 30px;
+} */
+
+.store-list {
+  padding: 15px;
+  overflow-y: scroll;
+}
+
+.store-container {
+  border-bottom: 1px solid #979797;
+  padding: 15px 10px;
+}
+
+.store-info-container {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: 0.2s all;
+}
+
+.store-info-container:hover {
+  background-color: rgba(204, 204, 204, 0.671);
+}
+
+.store-address-lines {
+  font-size: 21px;
+  color: #514c4c;
+  margin-top: 30px;
+}
+
+.store-phone-number {
+  color: #b5adad;
+  margin: 15px 0;
 }

@@ -28,6 +28,7 @@ const getStores = () => {
     }).then((data) => {
         console.log(data);
         addMarkers(data);
+        setStoresList(data);
     })
 }
 
@@ -81,4 +82,30 @@ const addMarkers = (stores) => {
     map.fitBounds(bounds, {
         padding: 50
     });
+}
+
+const setStoresList = (stores) => {
+    let storesHTML = '';
+
+    stores.forEach((store) => {
+        storesHTML += `
+        <div class="store-container">
+            <div class="store-info-container">
+                <div class="store-address-lines">
+                    <div class="store-address">
+                            ${store.addressLines[0]}
+                    </div>
+                    <div class="store-address">
+                            ${store.addressLines[1]}
+                    </div>
+                </div>
+            <div class="store-phone-number">
+                ${store.phoneNumber}
+            </div>
+        </div>
+    </div>
+        `
+
+        document.querySelector('.store-list').innerHTML = storesHTML;
+    })
 }
