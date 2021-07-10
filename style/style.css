@@ -145,6 +145,10 @@ div.mapboxgl-popup-content div {
   background-color: rgba(204, 204, 204, 0.671);
 }
 
+.active {
+  background-color: rgba(204, 204, 204, 0.671);
+}
+
 .store-address-lines {
   font-size: 21px;
   color: #514c4c;
@@ -154,4 +158,14 @@ div.mapboxgl-popup-content div {
 .store-phone-number {
   color: #b5adad;
   margin: 15px 0;
+}
+
+/***** Marker style *****/
+.marker {
+  border: none;
+  cursor: pointer;
+  height: 56px;
+  width: 56px;
+  background-image: url("https://docs.mapbox.com/help/demos/building-a-store-locator/marker.png");
+  background-color: rgba(0, 0, 0, 0);
 }
