@@ -57,6 +57,34 @@ body {
   cursor: pointer;
 }
 
+/***** Intro box element *****/
+.intro {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.enter-zip {
+  color: #514c4c;
+  font-size: 22px;
+}
+.find-stores {
+  color: #198581;
+  font-size: 20px;
+}
+
+/***** No stores found ****/
+.no-stores-found {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #514c4c;
+  font-size: 20px;
+}
+
 /************ Popup ************/
 div.mapboxgl-popup-content {
   min-width: 300px;
@@ -128,6 +156,7 @@ div.mapboxgl-popup-content div {
 .store-list {
   padding: 15px;
   overflow-y: scroll;
+  height: 100%;
 }
 
 .store-container {

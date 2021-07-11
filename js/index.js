@@ -12,13 +12,9 @@ var map = new mapboxgl.Map({
 var marker;
 var countMarkers = 0;
 
-//Default Marker display
-// var marker = new mapboxgl.Marker().setLngLat([-118.358080, 34.063380]).addTo(map);
 
 //Retrieve data from REST API
 const getStores = () => {
-    console.log("I'm in!");
-
     //Take user input
     let inputElem = document.querySelector('#zip-code');
     let zipCode = inputElem.value;
@@ -37,14 +33,27 @@ const getStores = () => {
             throw new Error(response.status);
         }
     }).then((data) => {
-        // console.log(data);
-        addMarkers(data);
-        setStoresList(data);
+        //if stores found
+        if (data.length > 0) {
+            //Clear prev search location markers
+            clearLocations();
 
-        setOnClickListener(data);
+            //Add new location markers
+            addMarkers(data);
+
+            //Set the list
+            setStoresList(data);
+
+            //Create and display popup on click
+            setOnClickListener(data);
+        }
+        //if stores NOT found
+        else {
+            clearLocations();
+            noStoresFound();
+        }
     })
 }
-
 
 //Press search icon OR press enter to search the zip code
 document.querySelector('.fa-search').addEventListener('click', getStores);
@@ -54,24 +63,31 @@ const onEnter = (e) => {
     }
 }
 
-
-//Execute callback when the map loads
-// map.on('load', () => {
-//     // getStores();
-// });
-
-
-const addMarkers = (stores) => {
-    //Define "bounds" to zoom on the area having all the points that have stores on the map
-    var bounds = new mapboxgl.LngLatBounds();
-
+//Remove markers
+const clearLocations = () => {
     //if markers exist of previous search
     if (countMarkers != 0) {
         for (let i = 0; i < countMarkers; i++) {
             let markerElem = document.getElementById(`marker-${i}`);
             markerElem.remove();
         }
+        countMarkers = 0;
     }
+}
+
+const noStoresFound = () => {
+    let html = `
+    <div class="no-stores-found"> 
+        No Stores Found
+    </div>
+    `;
+
+    document.querySelector('.store-list').innerHTML = html;
+}
+
+const addMarkers = (stores) => {
+    //Define "bounds" to zoom on the area having all the points that have stores on the map
+    var bounds = new mapboxgl.LngLatBounds();
 
     //Set initial count to zero
     countMarkers = 0;
@@ -110,29 +126,6 @@ const addMarkers = (stores) => {
             //Scroll to the selecetd list item 
             document.getElementById(`link-${index}`).parentNode.scrollIntoView({ behavior: "smooth" });
         });
-
-
-
-
-
-
-        //Display popup card on click
-        // var popup = new mapboxgl.Popup()
-        //     .setHTML(
-        //         `<div id="marker-${index}" class="popup-heading"> ${store.storeName} </div>
-        //         <p> ${store.openStatusText}</p>
-        //         <hr />
-        //         <div>
-        //             <span class="popup-icon"> <i class="fas fa-location-arrow"></i> </span>
-        //             <span class="popup-icon-info">${store.addressLines[0]}</span>
-        //         </div>
-        //         <div>
-        //             <span class="popup-icon"> <i class="fas fa-phone-alt"></i> </span>
-        //             <span class="popup-icon-info">
-        //                 <a href="tel:${store.phoneNumber}">${store.phoneNumber} </a>
-        //             </span>
-        //         </div>
-        //     `);
 
         //Define longitude and latitude coordinates
         var lng = store.location.coordinates[0];
@@ -177,7 +170,6 @@ const setStoresList = (stores) => {
     })
 
     document.querySelector('.store-list').innerHTML = storesHTML;
-
 }
 
 
