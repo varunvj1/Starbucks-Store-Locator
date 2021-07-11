@@ -29,10 +29,7 @@ body {
   z-index: 10;
   font-size: 30px;
   background-color: #454e53;
-  /* color: #ffffff; */
   border-radius: 30px;
-  /* outline: none; */
-  /* padding: 20px; */
 }
 
 .search-container__search {
@@ -54,6 +51,10 @@ body {
 
 .fas {
   color: #ffffff;
+}
+
+.fa-search {
+  cursor: pointer;
 }
 
 /************ Popup ************/
