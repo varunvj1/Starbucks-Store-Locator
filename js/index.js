@@ -10,6 +10,7 @@ var map = new mapboxgl.Map({
 });
 
 var marker;
+var countMarkers = 0;
 
 //Default Marker display
 // var marker = new mapboxgl.Marker().setLngLat([-118.358080, 34.063380]).addTo(map);
@@ -18,7 +19,15 @@ var marker;
 const getStores = () => {
     console.log("I'm in!");
 
-    const API_URL = "http://localhost:3000/api/stores";
+    //Take user input
+    let inputElem = document.querySelector('#zip-code');
+    let zipCode = inputElem.value;
+
+    if (!zipCode) {
+        return;
+    }
+
+    const API_URL = `http://localhost:3000/api/stores/${zipCode}`;
 
     fetch(API_URL).then((response) => {
         if (response.status == 200) {
@@ -28,7 +37,7 @@ const getStores = () => {
             throw new Error(response.status);
         }
     }).then((data) => {
-        console.log(data);
+        // console.log(data);
         addMarkers(data);
         setStoresList(data);
 
@@ -37,16 +46,35 @@ const getStores = () => {
 }
 
 
+//Press search icon OR press enter to search the zip code
+document.querySelector('.fa-search').addEventListener('click', getStores);
+const onEnter = (e) => {
+    if (e.key == "Enter") {
+        getStores();
+    }
+}
+
+
 //Execute callback when the map loads
-map.on('load', () => {
-    getStores();
-});
+// map.on('load', () => {
+//     // getStores();
+// });
 
 
 const addMarkers = (stores) => {
     //Define "bounds" to zoom on the area having all the points that have stores on the map
     var bounds = new mapboxgl.LngLatBounds();
 
+    //if markers exist of previous search
+    if (countMarkers != 0) {
+        for (let i = 0; i < countMarkers; i++) {
+            let markerElem = document.getElementById(`marker-${i}`);
+            markerElem.remove();
+        }
+    }
+
+    //Set initial count to zero
+    countMarkers = 0;
 
     //Iterate over all the stores
     stores.forEach((store, index) => {
@@ -57,6 +85,9 @@ const addMarkers = (stores) => {
         el.id = "marker-" + index;
         /* Assign the `marker` class to each marker for styling. */
         el.className = 'marker';
+
+        //Increment count of markers
+        countMarkers++;
 
         el.addEventListener('click', function (e) {
             /* Fly to the point */
