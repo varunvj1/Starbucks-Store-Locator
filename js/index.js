@@ -9,15 +9,6 @@ var map = new mapboxgl.Map({
     zoom: 11,
 });
 
-
-// Add the control to the map.
-map.addControl(
-    new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
-    })
-);
-
 var marker;
 var countMarkers = 0;
 
@@ -32,8 +23,7 @@ const getStores = () => {
         return;
     }
 
-    // const API_URL = `http://localhost:3000/api/stores/${zipCode}`;
-    const API_URL = `https://mapboxrestapi.herokuapp.com/api/stores/${zipCode}`;
+    const API_URL = `http://localhost:3000/api/stores/${zipCode}`;
 
     fetch(API_URL).then((response) => {
         if (response.status == 200) {
