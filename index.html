@@ -33,7 +33,7 @@
     <!-- Search zip -->
     <div class="search-container" type="text">
         <div class="search-container__search">
-            <input type="text" placeholder="Enter Zip" onkeyup="onEnter(event)" class="search-container__input"
+            <input type="text" placeholder="Enter District" onkeyup="onEnter(event)" class="search-container__input"
                 id="zip-code" />
             <i class="fas fa-search"></i>
         </div>
@@ -44,7 +44,7 @@
     <div class="store-list-container">
         <div class="store-list">
             <div class="intro">
-                <span class="enter-zip">Enter Zip Code</span>
+                <span class="enter-zip">Enter Place</span>
                 <span class="find-stores">Find stores near you</span>
             </div>
         </div>
@@ -53,6 +53,19 @@
     <div id='map'></div>
 
     <script src="js/index.js" async defer></script>
+
+
+    <!-- Load the `mapbox-gl-geocoder` plugin. -->
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css"
+        type="text/css">
+
+    <!-- Promise polyfill script is required -->
+    <!-- to use Mapbox GL Geocoder in IE 11. -->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 </body>
 
 </html>

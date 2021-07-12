@@ -5,9 +5,18 @@ mapboxgl.accessToken = 'pk.eyJ1IjoidmFydW52ajEiLCJhIjoiY2txczl0cng5MTU5ODJ1bzFsa
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-118.358080, 34.063380],  //long lat
+    center: [77.209023, 28.613939],  //long lat
     zoom: 11,
 });
+
+
+// Add the control to the map.
+map.addControl(
+    new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+    })
+);
 
 var marker;
 var countMarkers = 0;
@@ -151,22 +160,35 @@ const setStoresList = (stores) => {
     let storesHTML = '';
 
     stores.forEach((store, index) => {
+        // storesHTML += `
+        // <div class="store-container">
+        //     <div id="link-${index}" class="store-info-container">
+        //         <div class="store-address-lines">
+        //             <div class="store-address">
+        //                     ${store.storeName}
+        //             </div>
+        //             <div class="store-address">
+        //                     ${store.address}
+        //             </div>
+        //         </div>
+        //         <div class="store-phone-number">
+        //             ${store.storeName}
+        //     </div>
+        // </div> `;
+
         storesHTML += `
         <div class="store-container">
             <div id="link-${index}" class="store-info-container">
                 <div class="store-address-lines">
                     <div class="store-address">
-                            ${store.addressLines[0]}
-                    </div>
-                    <div class="store-address">
-                            ${store.addressLines[1]}
+                            ${store.storeName}
                     </div>
                 </div>
-            <div class="store-phone-number">
-                ${store.phoneNumber}
+                <div class="store-phone-number">
+                    ${store.address}, ${store.city}, ${store.country}
             </div>
-        </div>
-    </div> `;
+            </div>
+        </div> `;
     })
 
     document.querySelector('.store-list').innerHTML = storesHTML;
@@ -216,17 +238,18 @@ const createPopUp = (store, index) => {
         .setLngLat(store.location.coordinates)
         .setHTML(
             `<div id="marker-${index}" class="popup-heading"> ${store.storeName} </div>
-            <p> ${store.openStatusText}</p>
+    
             <hr />
             <div>
                 <span class="popup-icon"> <i class="fas fa-location-arrow"></i> </span>
-                <span class="popup-icon-info">${store.addressLines[0]}</span>
+                <span class="popup-icon-info">${store.address}</span>
             </div>
             <div>
-                <span class="popup-icon"> <i class="fas fa-phone-alt"></i> </span>
-                <span class="popup-icon-info">
-                    <a href="tel:${store.phoneNumber}">${store.phoneNumber} </a>
-                </span>
+            <span class="popup-icon"> <i class="fas fa-globe-asia"></i> </span>
+            <span class="popup-icon-info">${store.city}, ${store.country} </span>
+        </div>
+            <div>
+
             </div>
         `)
         .addTo(map);
