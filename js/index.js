@@ -32,7 +32,8 @@ const getStores = () => {
         return;
     }
 
-    const API_URL = `http://localhost:3000/api/stores/${zipCode}`;
+    // const API_URL = `http://localhost:3000/api/stores/${zipCode}`;
+    const API_URL = `https://mapboxrestapi.herokuapp.com/api/stores/${zipCode}`;
 
     fetch(API_URL).then((response) => {
         if (response.status == 200) {
