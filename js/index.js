@@ -1,5 +1,5 @@
 //API token key
-mapboxgl.accessToken = 'pk.eyJ1IjoidmFydW52ajEiLCJhIjoiY2tyMHN5NXlwMHRueDJubW5qd3Z2emhpbyJ9.Tnd9fqfCIKscYPifxTgkJQ';
+mapboxgl.accessToken = 'pk.eyJ1IjoidmFydW52ajEiLCJhIjoiY2txczl0cng5MTU5ODJ1bzFsaGhra3Z6biJ9.W8R-7w5Tj56V9XFXKG6S5Q';
 
 //Map display
 var map = new mapboxgl.Map({
