@@ -1,5 +1,5 @@
 //API token key
-mapboxgl.accessToken = 'pk.eyJ1IjoidmFydW52ajEiLCJhIjoiY2txczl0cng5MTU5ODJ1bzFsaGhra3Z6biJ9.W8R-7w5Tj56V9XFXKG6S5Q';
+mapboxgl.accessToken = 'pk.eyJ1IjoidmFydW52ajEiLCJhIjoiY2tyMHN5NXlwMHRueDJubW5qd3Z2emhpbyJ9.Tnd9fqfCIKscYPifxTgkJQ';
 
 //Map display
 var map = new mapboxgl.Map({
@@ -151,22 +151,6 @@ const setStoresList = (stores) => {
     let storesHTML = '';
 
     stores.forEach((store, index) => {
-        // storesHTML += `
-        // <div class="store-container">
-        //     <div id="link-${index}" class="store-info-container">
-        //         <div class="store-address-lines">
-        //             <div class="store-address">
-        //                     ${store.storeName}
-        //             </div>
-        //             <div class="store-address">
-        //                     ${store.address}
-        //             </div>
-        //         </div>
-        //         <div class="store-phone-number">
-        //             ${store.storeName}
-        //     </div>
-        // </div> `;
-
         storesHTML += `
         <div class="store-container">
             <div id="link-${index}" class="store-info-container">
