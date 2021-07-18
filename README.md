@@ -6,9 +6,8 @@ A store locator that locates Starbucks cafe in any district across the globe.
 ## How to use?
 - Simply input the district name (say Gurgaon), and it will locate the Starbucks cafe in/near the specified district and display it dynamically on the map.
 - Click on any result item (the marker on the map OR the list item in the left), and it will ZOOM-in on the place and display the popup. 
-- Checkout the UI [here](https://varunvj1.github.io/Starbucks-Store-Locator/).
+- Checkout the project [here](https://varunvj1.github.io/Starbucks-Store-Locator/).
 
-> <b>NOTE: </b> Run this [API](https://github.com/varunvj1/Starbucks-Store-Locator-api) at port 3000 before making any queries in the application. 
 
 ![Searched Place](https://i.ibb.co/KX4fyRD/Store-locator-search.png)
 ![Popup](https://i.ibb.co/HxFygnz/Store-locator-popup.png)
