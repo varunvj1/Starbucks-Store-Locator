@@ -155,7 +155,7 @@ div.mapboxgl-popup-content div {
 
 .store-list {
   padding: 15px;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 100%;
 }
 
