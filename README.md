@@ -16,4 +16,4 @@ A store locator that locates Starbucks cafe in any district across the globe.
 - Frontend: HTML and CSS
 - Backend: [Node JS](https://nodejs.org/en/docs/) and [Express JS](https://expressjs.com/)
 - Database: [MongoDB](https://www.mongodb.com/cloud/atlas/lp/try2-in?utm_source=google&utm_campaign=gs_apac_india_search_core_brand_atlas_desktop&utm_term=mongo%20db&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=12212624347&gclid=Cj0KCQjw0K-HBhDDARIsAFJ6UGjufc-6X_SBbs0EB0wDtAcUwaRgFwaLOHGC0-xNygT8rTdvGrxsUfkaAjJ4EALw_wcB)
-- API: [Mapbox API](https://www.mapbox.com/) and [REST API](https://github.com/varunvj1/Starbucks-Store-Locator-api)
+- API: [Mapbox API](https://www.mapbox.com/) and REST API
