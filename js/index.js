@@ -55,7 +55,7 @@ const getStores = () => {
     })
 }
 
-//Press search icon OR press enter to search the zip code
+//Press search icon OR press enter to search the District
 document.querySelector('.fa-search').addEventListener('click', getStores);
 const onEnter = (e) => {
     if (e.key == "Enter") {
@@ -143,7 +143,7 @@ const addMarkers = (stores) => {
 
     //Provide padding on the corners of the selected area of stores
     map.fitBounds(bounds, {
-        padding: 50
+        padding: 200
     });
 }
 
